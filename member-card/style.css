@@ -1,0 +1,159 @@
+/*TODO: Game started */
+
+/* flex container */
+#cards {
+  /* 預設主軸(main axis) 為 row(由左往右) */
+  display: flex;
+  /* flex-wrap 換行 */
+  /* wrap 多行 */
+  flex-wrap: wrap;
+}
+
+/* flex item */
+.card {
+  /* flex container */
+  /* 卡片在容器裡的排版 */
+
+  /* box-sizing 為控制 width 與 height 作用的對象空間 */
+  /* 預設值是 content-box (寬高設定作用在內容範圍) */
+  /* Border-box（寬高設定作用在邊框外緣的範圍內） */
+  box-sizing: border-box;
+  /* flex: 平均分配容器寬度空間 */
+  /* flex-grow(分配剩餘空間), flex-shrink(收縮不足空間), flex-basis(分配寬度100%) */
+  /* 52 張牌能以 4*13 排列，每一橫列要有 13 張卡片 */
+  /* 100 / 13 = 7.7 => 7%*/
+  flex: 1 1 7%;
+  /* vw 依視窗的寬度等比例變化 */
+  height: 8vw;
+  border: 2px solid #e0e0e0;
+  margin: 2px;
+
+  /* flex item */
+  /* 卡片內部元素的排版 */
+
+  display: flex;
+  /* flex-direction 主軸與交錯軸位置互換 */
+  /* main axis 變為 column(由上往下) */
+  flex-direction: column;
+  /* justify-content 主軸內容排列 */
+  /* space-around 均分的間隔 */
+  justify-content: space-around;
+}
+
+/* 花色圖示排版 */
+.card img {
+  max-width: 30%;
+  /* align-self 交錯軸(cross axis)的個別排列 */
+  align-self: center;
+}
+
+.card p {
+  margin: 3px;
+  font-size: 10px;
+}
+
+/* :last-child 在同一個階層的同類元素中，選出最後面的元素 */
+.card p:last-child {
+  /* transform 旋轉校果 */
+  /* rotate(x)中心軸旋轉 x 度，正數為順時針旋轉，deg (角度) */
+  transform: rotate(180deg);
+}
+
+/* 加入牌背 */
+.back {
+  background: url('https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png');
+  /* 背景圖片設定尺寸 */
+  /* cover 為不留白的鋪滿空間，在必要時局部裁切 */
+  background-size: cover;
+}
+
+/* 配對成功，則改變卡片的底色 */
+.paired {
+  background-color: #dae0e3;
+}
+
+#header {
+  /* border: 2px solid red; */
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  /* align-items 交錯軸項目排列 */
+  /* flex-end 從交錯軸軸終點排列 */
+  align-items: flex-end;
+  width: 85%;
+}
+
+#header .title {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+#header .title img {
+  /* em 為字體大小單位(保持大小比例) */
+  /* px 定義為小但仍可見的大小單位 */
+  max-width: 3em;
+}
+
+#header .title h2 {
+  padding-left: 0.5em;
+}
+
+#header .score {
+  margin: 0;
+  color: #6c90ac;
+}
+
+#header .tried {
+  margin-top: 0;
+}
+
+/* 加入動畫 */
+.wrong {
+  animation-name: wrongAnimation;
+  /* animation-duration 動畫持續秒數 */
+  animation-duration: 0.2s;
+  /* animation-iteration-count 動畫重覆次數 */
+  animation-iteration-count: 5;
+}
+
+/* 動畫特效:關鍵影格 */
+/* 用關鍵影格 @keyframes 指定了一個叫 wrongAnimation 的動畫流程 */
+/* 用 from(0%) 和 to(100%) 來指定動畫漸變起點/終點 */
+/* 使用 to 來指定「當動畫發生時，該元素要逐漸加上黃色邊框」 */
+@keyframes wrongAnimation {
+  to {
+    border: 2px solid #ffd54f;
+  }
+}
+
+/* TODO: Game finished */
+
+/* 底色 */
+.completed {
+  position: absolute;
+    /* vh 依視窗的長度等比例變化 */
+  top: 33vh;
+  z-index: 999;
+  background-color: rgb(232, 246, 254, 0.8);
+  width: 100vw;
+  padding: 50px 0;
+}
+
+/* 成績 */
+/* .A > B 為選取 A 底下直接接觸到的子元素 B */
+.completed > p {
+  font-size: 1.5em;
+  color: black;
+  /* text-align 文字的水平對齊 */
+  text-align: center;
+  margin: 0;
+}
+
+/* 完成 */
+/* :first-child 在同一個階層的同類元素中，選出最前面的元素 */
+.completed > p:first-child {
+  font-size: 3em;
+  font-weight: 700;
+  color: #758d9a;
+}
